@@ -49,8 +49,8 @@ openai_key = "your-openai-api-key"
 
 1. Clone the repository:
 
-git clone https://github.com/yourusername/my-parent-helpers.git
-cd my-parent-helpers
+git clone 
+https://github.com/yourusername/mph2025-app.git
 
 2. Install dependencies:
 
