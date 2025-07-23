@@ -305,7 +305,7 @@ elif step == 4:
         c_age  = st.number_input("Child age", 1, 21)
         c_name = st.text_input("Child first name")
         prof_nm= st.text_input("Profile name")
-        saved  = st.form_submit_button("SAVE", key="btn_save_profile")
+        saved  = st.form_submit_button("SAVE")
     if saved:
         if not all([p_name, c_age, c_name, prof_nm]):
             st.warning("Please fill every field.")
