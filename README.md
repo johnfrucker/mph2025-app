@@ -36,14 +36,20 @@ Python 3.9+
 
 OpenAI API Key (required to use the AI features)
 
+## 🔐 Streamlit Secrets Setup
+
+**On Streamlit Community Cloud:**
+- Go to your app’s dashboard.
+- Click the “Secrets” tab.
+- Add:
+    openai_key = "sk-xxxxxxYOURKEYHERExxxxxxx"
+- Click Save and rerun the app.
+
+**Locally:**  
+- Create a `.streamlit/secrets.toml` file with the same content above.
 Set your OpenAI API key via Streamlit Secrets Manager or by directly editing the code:
 
 openai.api_key = st.secrets.get("openai_key", "YOUR_OPENAI_API_KEY")
-
-Alternatively, create a .streamlit/secrets.toml file:
-
-[openai]
-openai_key = "your-openai-api-key"
 
 🛠 Installation
 
