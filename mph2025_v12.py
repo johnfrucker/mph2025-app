@@ -203,16 +203,16 @@ if step == 0:
             if not st.session_state.profiles:
                 st.warning("No profiles – create one first.")
             st.rerun()
-     with row2c2:
+    with row2c2:
         if st.button("SAVED CHATS", key="home_saved"):
             if st.session_state.saved_responses:
                 st.session_state.step = 8
                 st.rerun()
             else:
                 st.warning("No saved responses yet!")
-     st.markdown("<div style='height:12px'>AGENT SOURCES</div>", unsafe_allow_html=True)
-     row3c1, _ = st.columns(2)
-     with row3c1:
+    st.markdown("<div style='height:12px'>AGENT SOURCES</div>", unsafe_allow_html=True)
+    row3c1, _ = st.columns(2)
+    with row3c1:
         if st.button("EDIT SOURCES", key="edit_sources"):
             st.session_state.step = 10
             st.rerun()
