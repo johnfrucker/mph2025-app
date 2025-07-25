@@ -187,7 +187,7 @@ TOOLTIPS = {
 if step == 0:
     # -- Section: Home Container --
     with st.container():   
-        col1, col2, col3 = st.columns(3)
+        col1, col2, = st.columns(2)
         with col1: 
             st.markdown(
             """
@@ -197,22 +197,13 @@ if step == 0:
             """,
             unsafe_allow_html=True,)
         with col2:
-            st.markdown("<div class='biglabel'>AGENT</div>", unsafe_allow_html=True)
-        with col3:
-            st.markdown("<div class='biglabel'>PROFILES</div>", unsafe_allow_html=True)
+            st.markdown("<div class='biglabel'>MPH</div>", unsafe_allow_html=True)
 
     # -- Section: AGENT PROFILES --
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1: 
-            st.markdown(
-            """
-            <div style="text-align:center;">
-              <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
-            </div>
-            """,
-            unsafe_allow_html=True,)
-        
+             st.markdown("<div class='biglabel'>AGENTS:</div>", unsafe_allow_html=True)
         with col2:
             if st.button("MY AGENTS", key="home_profiles"):
                 if st.session_state.profiles:
