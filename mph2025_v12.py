@@ -24,16 +24,6 @@ st.markdown(
     }
     .biglabel{font-size:1.4em;font-weight:800;color:#ffffff;margin:4px 0 10px;text-align:center;letter-spacing:.5px;}
     .frame-avatar{font-size:1.4em;margin:6px 0 6px;display:flex;justify-content:center;color:#ffffff;}
-
-    /* Home screen section box */
-    .home-box{
-      background:rgba(255,255,255,0.15);
-      border:2px solid #ffffff;
-      border-radius:16px;
-      padding:12px;
-      width:100%;
-      margin:12px 0;
-    }
     
     .stButton>button{
       border-radius:26px!important;
@@ -60,8 +50,20 @@ st.markdown(
     @media (max-height:750px){.stApp{min-height:640px;}}
     </style>
     """,
-    unsafe_allow_html=True,
-)
+    unsafe_allow_html=True,)
+
+st.markdown("""
+    <style>
+    .home-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 16px 16px 10px 16px;
+      border-radius: 18px;
+      margin: 10px 0 20px 0;
+      border: 2px solid #ffffff33;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------------------------
 #  TOP NAVIGATION
