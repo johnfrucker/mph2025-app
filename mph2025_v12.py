@@ -31,6 +31,18 @@ st.markdown(
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .biglabel{font-size:1.4em;font-weight:800;color:#ffffff;margin:4px 0 10px;text-align:center;letter-spacing:.5px;}
+    .biglabel {
+      font-size: 1.4em;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 4px 0 10px;
+      text-align: center;
+      letter-spacing: 0.5px;
+      background: rgba(255, 255, 255, 0.15);  /* Light translucent white */
+      padding: 6px 12px;
+      border-radius: 12px;
+    }
+
     .frame-avatar{font-size:1.4em;margin:6px 0 6px;display:flex;justify-content:center;color:#ffffff;}
     
     .stButton>button{
