@@ -25,6 +25,16 @@ st.markdown(
     .biglabel{font-size:1.4em;font-weight:800;color:#ffffff;margin:4px 0 10px;text-align:center;letter-spacing:.5px;}
     .frame-avatar{font-size:1.4em;margin:6px 0 6px;display:flex;justify-content:center;color:#ffffff;}
 
+    /* Home screen section box */
+    .home-box{
+      background:rgba(255,255,255,0.15);
+      border:2px solid #ffffff;
+      border-radius:16px;
+      padding:12px;
+      width:100%;
+      margin:12px 0;
+    }
+    
     .stButton>button{
       border-radius:26px!important;
       font-weight:700!important;
@@ -182,6 +192,8 @@ if step == 0:
         """,
         unsafe_allow_html=True,
     )
+
+    st.markdown('<div class="home-box">', unsafe_allow_html=True)
     st.markdown("<div style='height:12px'>AGENT PROFILES</div>", unsafe_allow_html=True)
     row1c1, row1c2 = st.columns(2)
     with row1c1:
@@ -195,6 +207,9 @@ if step == 0:
         if st.button("NEW AGENT", key="home_create"):
             st.session_state.step = 1
             st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="home-box">', unsafe_allow_html=True)
     st.markdown("<div style='height:12px'>AGENT CHAT</div>", unsafe_allow_html=True)
     row2c1, row2c2 = st.columns(2)
     with row2c1:
@@ -210,13 +225,17 @@ if step == 0:
                 st.rerun()
             else:
                 st.warning("No saved responses yet!")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="home-box">', unsafe_allow_html=True)
     st.markdown("<div style='height:12px'>AGENT SOURCES</div>", unsafe_allow_html=True)
     row3c1, _ = st.columns(2)
     with row3c1:
         if st.button("EDIT SOURCES", key="edit_sources"):
             st.session_state.step = 10
             st.rerun()
-            
+            st.markdown('</div>', unsafe_allow_html=True)
+
 elif step == 1:
     render_top_nav()
     st.markdown(
