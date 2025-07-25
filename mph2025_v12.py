@@ -79,6 +79,40 @@ def render_top_nav():
 # ---------------------------------------------------------------------------
 #  HELPER FUNCTIONS & CONSTANTS
 # ---------------------------------------------------------------------------
+SOURCES_FILE = "parent_helpers_sources.json"
+DEFAULT_SOURCES = {
+    "Parent": {
+        "Book": ["The Whole-Brain Child", "Peaceful Parent, Happy Kids"],
+        "Expert": ["Dr. Laura Markham", "Dr. Daniel Siegel"],
+        "Style": ["Authoritative", "Gentle Parenting"]
+    },
+    "Teacher": {
+        "Book": ["Teach Like a Champion", "Mindset"],
+        "Expert": ["Carol Dweck", "Doug Lemov"],
+        "Style": ["Project-Based Learning", "SEL"]
+    },
+    "Other": {
+        "Book": ["Custom Book (enter manually)"],
+        "Expert": ["Custom Expert (enter manually)"],
+        "Style": ["Custom Style (enter manually)"]
+    }
+}
+
+def load_sources():
+    if not os.path.exists(SOURCES_FILE):
+        save_sources(DEFAULT_SOURCES)
+        return DEFAULT_SOURCES
+    try:
+        with open(SOURCES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return DEFAULT_SOURCES
+
+def save_sources(sources):
+    with open(SOURCES_FILE, "w", encoding="utf-8") as f:
+        json.dump(sources, f, indent=2)
+
+
 PROFILES_FILE = "parent_helpers_profiles.json"
 RESPONSES_FILE = "parent_helpers_responses.json"
 
@@ -103,25 +137,17 @@ for key, default in {
     "profiles":        load_json(PROFILES_FILE),
     "saved_responses": load_json(RESPONSES_FILE),
     "last_answer":     "",
+    "sources":         load_sources()
 }.items():
     st.session_state.setdefault(key, default)
+
+def get_source_options(agent_type):
+    return st.session_state["sources"].get(agent_type, {"Book":[], "Expert":[], "Style":[]})
 
 step = st.session_state.get("step", 0)
 openai.api_key = st.secrets.get("openai_key", "YOUR_OPENAI_API_KEY")
 
-BOOKS = [
-    "Parenting with Presence", "Parenting Without Power Struggles",
-    "Peaceful Parent, Happy Kids", "Permission to Parent",
-    "Positive Parenting: An Essential Guide", "Punished by Rewards"
-]
-EXPERTS = [
-    "Dr. Laura Markham", "Dr. Daniel Siegel", "Dr. Ross Greene",
-    "Janet Lansbury", "Adele Faber"
-]
-STYLES = [
-    "Positive Parenting", "Authoritative", "Permissive",
-    "Attachment Parenting", "Montessori", "Gentle Parenting"
-]
+AGENT_TYPES = ["Parent", "Teacher", "Other"]
 
 class PersonaProfile(BaseModel):
     profile_name: str
@@ -184,7 +210,12 @@ if step == 0:
                 st.rerun()
             else:
                 st.warning("No saved responses yet!")
-
+    row3c1, _ = st.columns(2)
+    with row3c1:
+        if st.button("EDIT SOURCES", key="edit_sources"):
+            st.session_state.step = 10
+            st.rerun()
+            
 elif step == 1:
     render_top_nav()
     st.markdown(
@@ -222,7 +253,7 @@ elif step == 2:
                 </div>
                 """,
                 unsafe_allow_html=True,)
-    st.markdown('<div class="biglabel">Select A Parenting Source Type</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">Select Agent Source Type</div>', unsafe_allow_html=True)
     st.markdown('<div class="frame-avatar"></div>', unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -243,17 +274,27 @@ elif step == 2:
 
 elif step == 3:
     st.markdown(
-                """
-                <div style="text-align:center;">
-                  <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
-                </div>
-                """,
-                unsafe_allow_html=True,)
-    st.markdown(f'<div class="biglabel">Choose a {st.session_state.source_type}</div>', unsafe_allow_html=True)
-    options = BOOKS if st.session_state.source_type == "Book" else EXPERTS if st.session_state.source_type == "Expert" else STYLES
-    emoji = "📚" if st.session_state.source_type == "Book" else "🧑‍" if st.session_state.source_type == "Expert" else "🌟"
+        """
+        <div style="text-align:center;">
+          <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    # Get current agent type
+    agent_type = st.session_state.get("agent_type", "Parent")
+    # Get source options for agent type
+    sources = get_source_options(agent_type)
+    source_type = st.session_state.get("source_type", "Book")
+    # Available options for the selected source_type
+    options = sources.get(source_type, ["Other..."])
+    # Always append "Other..." for custom entry
+    if "Other..." not in options:
+        options = options + ["Other..."]
+    emoji = "📚" if source_type == "Book" else "🧑‍" if source_type == "Expert" else "🌟"
+    st.markdown(f'<div class="biglabel">Choose a {source_type}</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="frame-avatar">{emoji}</div>', unsafe_allow_html=True)
-    choice = st.selectbox("Select or enter your own:", options + ["Other..."])
+    choice = st.selectbox("Select or enter your own:", options)
     custom = st.text_input("Enter custom name") if choice == "Other..." else ""
     col1, col2 = st.columns(2)
     with col1:
@@ -269,7 +310,7 @@ elif step == 3:
                 st.session_state.source_name = src_name
                 st.session_state.step = 4
                 st.rerun()
-
+                
 elif step == 4:
     st.markdown(
         """
@@ -295,9 +336,9 @@ elif step == 4:
                     "Respond in a JSON object with 'persona_description'."
                 )
                 out = openai.chat.completions.create(
-                    model="gpt-4o",
-                    messages=[{"role": "user", "content": prompt}],
-                    response_format={"type": "json_object"},
+                model="gpt-4o",
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type":"json_object"}
                 )
                 raw = out.choices[0].message.content
                 st.session_state.persona_description = json.loads(raw)["persona_description"]
@@ -564,3 +605,46 @@ elif step == 9:
         if st.button("CLOSE", key="btn_close_profile"):
             st.session_state.step = 0
             st.rerun()
+
+elif step == 10:
+    st.markdown(
+        """
+        <div style="text-align:center;">
+          <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
+        </div>
+        """, unsafe_allow_html=True
+    )
+    render_top_nav()
+    st.markdown('<div class="biglabel">EDIT SOURCE LISTS</div>', unsafe_allow_html=True)
+    agent_type = st.selectbox("Agent Type", AGENT_TYPES, key="edit_agent_type")
+    source_type = st.selectbox("Source Type", ["Book","Expert","Style"], key="edit_source_type")
+    sources = st.session_state["sources"]
+    items = sources.get(agent_type, {}).get(source_type, [])
+    st.write(f"**Current {source_type}s for {agent_type}:**")
+    to_remove = st.multiselect("Select to remove", items, key="remove_sources")
+    new_item = st.text_input(f"Add new {source_type}:", key="add_source")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        if st.button("Remove Selected"):
+            sources[agent_type][source_type] = [x for x in items if x not in to_remove]
+            st.session_state["sources"] = sources
+            save_sources(sources)
+            st.success("Removed selected!")
+            st.rerun()
+    with c2:
+        if st.button("Add"):
+            if new_item and new_item not in items:
+                sources[agent_type][source_type].append(new_item)
+                st.session_state["sources"] = sources
+                save_sources(sources)
+                st.success(f"Added '{new_item}'!")
+                st.rerun()
+            elif new_item:
+                st.warning("Already in list.")
+    with c3:
+        if st.button("Back to Home"):
+            st.session_state.step = 0
+            st.rerun()
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.write("**Current list:**")
+    st.write(sources.get(agent_type, {}).get(source_type, []))
