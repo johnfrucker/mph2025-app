@@ -476,13 +476,23 @@ elif step == 7:
     )
 
 
-    st.markdown('<div class="biglabel">2. SELECT A RESPONSE TYPE</div>', unsafe_allow_html=True)
-    st.session_state.setdefault("shortcut", "💬 DEFAULT")
-    cols = st.columns(len(SHORTCUTS))
-    for i, sc in enumerate(SHORTCUTS):
-        with cols[i]:
-            if st.button(EMOJIS[sc], key=f"type_{sc}", help=TOOLTIPS[sc]):
-                st.session_state.shortcut = sc
+    # -- Row: Section Title + Buttons --
+    col1, col2 = st.columns([3, 5])
+
+    # Column 1: Label
+    with col1:
+        st.markdown('<div class="biglabel">2. SELECT A RESPONSE TYPE</div>', unsafe_allow_html=True)
+
+    # Column 2: Shortcut Buttons
+    with col2:
+        st.session_state.setdefault("shortcut", "💬 DEFAULT")
+        button_cols = st.columns(len(SHORTCUTS))
+        for i, sc in enumerate(SHORTCUTS):
+            with button_cols[i]:
+                if st.button(EMOJIS[sc], key=f"type_{sc}", help=TOOLTIPS[sc]):
+                    st.session_state.shortcut = sc
+
+    # -- Below the Row: Selected Response Box --
     st.markdown(
         f"""
         <div style="background:#fff;color:#000;padding:12px;border-radius:8px;margin-top:12px;margin-bottom:12px;">
