@@ -23,9 +23,8 @@ st.markdown(
       padding:10px 10px 10px;
     }
      
-    .biglabel{font-size:1.4em;font-weight:800;color:#ffffff;margin:4px 0 10px;text-align:center;letter-spacing:.5px;}
     .biglabel {
-      font-size: 1.4em;
+      font-size: 1.1em;
       font-weight: 800;
       color: #ffffff;
       margin: 4px 0 10px;
@@ -205,7 +204,7 @@ if step == 0:
         with col1: 
             st.markdown("<div class='biglabel'>AGENTS:</div>", unsafe_allow_html=True)
         with col2:
-            if st.button("MY AGENTS", key="home_profiles"):
+            if st.button("SAVED AGENTS", key="home_profiles"):
                 if st.session_state.profiles:
                     st.session_state.step = 9
                     st.rerun()
@@ -222,19 +221,19 @@ if step == 0:
         with col1: 
             st.markdown("<div class='biglabel'>CHAT:</div>", unsafe_allow_html=True)
         with col2:
-            if st.button("CHAT", key="home_chat"):
-                st.session_state.step = 7 if st.session_state.profiles else 1
-                if not st.session_state.profiles:
-                    st.warning("No profiles – create one first.")
-                st.rerun()
-        with col3:
             if st.button("SAVED CHATS", key="home_saved"):
                 if st.session_state.saved_responses:
                     st.session_state.step = 8
                     st.rerun()
                 else:
                     st.warning("No saved responses yet!")
-
+        with col3:
+            if st.button("NEW CHAT", key="home_chat"):
+                st.session_state.step = 7 if st.session_state.profiles else 1
+                if not st.session_state.profiles:
+                    st.warning("No profiles – create one first.")
+                st.rerun()
+            
     # -- Section: AGENT SOURCES --
     with st.container():
         col1, col2, col3 = st.columns(3)
