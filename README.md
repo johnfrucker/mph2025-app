@@ -1,12 +1,15 @@
-Test drive the application at: https://mph2025.streamlit.app/
+Test drive the application at: [https://mph-10.streamlit.app/]
 My Parent Helpers (MPH)
 
-My Parent Helpers is a Streamlit-powered application designed to assist parents with personalized parenting advice, guidance, and educational support. The app dynamically generates parenting agent personas based on books, experts, or parenting styles and injects these profiles into queries sent to OpenAI models.
+My Parent Helpers is a Streamlit-powered application designed to assist parents with personalized parenting advice, guidance, and educational support. The app allows users to generate multiple parenting helper profiles ("Agents") with personas based on a selected book, expert, or parenting style.  Edit and approve the persona generated to ensure it aligns with your understanding then the profiles details.
+
+These personalized parenting profiles are used in the applications prompt scheme which leverages mutiple parts of the prompt's structure - the entire context and combines with  and injects these profiles into queries sent to OpenAI models.
 
 🚀 Features
 
 Create personalized parenting profiles using:
 
+👪 Parent agents, 🧑‍🏫 Teacher agents, or ✨ Other agents
 📚 Books
 🧑‍ Experts
 ✨ Styles
