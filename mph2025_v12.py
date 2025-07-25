@@ -321,7 +321,7 @@ elif step == 4:
         unsafe_allow_html=True,
     )
     import time
-    st.markdown('<div class="biglabel">GENERATING YOUR PARENTING AGENT PERSONA</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">GENERATING YOUR AGENT PERSONA</div>', unsafe_allow_html=True)
     st.markdown('<div class="frame-avatar">🧠✨</div>', unsafe_allow_html=True)
     placeholder = st.empty()
     for msg in ["Assimilating Knowledge…", "Synthesizing Information…", "Assessing Results…", "Generating Persona…"]:
@@ -366,7 +366,7 @@ elif step == 5:
                 </div>
                 """,
                 unsafe_allow_html=True,)
-    st.markdown('<div class="biglabel">PARENTING AGENT DETAILS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">PERSONALIZE AGENT</div>', unsafe_allow_html=True)
     st.markdown('<div class="frame-avatar">📷</div>', unsafe_allow_html=True)
     with st.form("profile"):
         p_name = st.text_input("Parent first name")
@@ -406,7 +406,7 @@ elif step == 6:
             """,
             unsafe_allow_html=True,)
     render_top_nav()
-    st.markdown('<div class="biglabel">PARENTING AGENT PROFILE CREATED! 🎉</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">AGENT PROFILE CREATED! 🎉</div>', unsafe_allow_html=True)
     st.markdown('<div class="frame-avatar">📝🎉</div>', unsafe_allow_html=True)
 
 elif step == 7:
@@ -418,7 +418,7 @@ elif step == 7:
                 """,
                 unsafe_allow_html=True,)
     render_top_nav()
-    st.markdown('<div class="biglabel">1. SELECT A PARENTING AGENT</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">1. SELECT AN AGENT</div>', unsafe_allow_html=True)
     names = [p["profile_name"] for p in st.session_state.profiles]
     col_dd, col_icon = st.columns([4,1])
     idx = col_dd.selectbox("Parenting Agent Profiles:", range(len(names)),
@@ -576,7 +576,7 @@ elif step == 9:
                 """,
                 unsafe_allow_html=True,)
     render_top_nav()
-    st.markdown('<div class="biglabel">MY PROFILES</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">AGENT PROFILES</div>', unsafe_allow_html=True)
     if not st.session_state.profiles:
         st.info("No profiles stored."); st.session_state.step = 0; st.rerun()
     titles = [f"{i+1}. {p['profile_name']}" for i,p in enumerate(st.session_state.profiles)]
