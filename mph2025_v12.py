@@ -187,7 +187,7 @@ TOOLTIPS = {
 if step == 0:
     st.markdown(
         """
-        <div style="text-align:left;">
+        <div style="text-align:center;">
           <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
         </div>
         """,
@@ -199,7 +199,7 @@ if step == 0:
         st.markdown("<div class='biglabel'>AGENT PROFILES</div>", unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         with col1:
-            <div style="text-align:left;">
+            <div style="text-align:center;">
           <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
         </div>
         with col2:
