@@ -40,8 +40,8 @@ st.markdown(
       font-weight:700!important;
       font-size:.9em!important;
       padding:.8em 0!important;
-      background:#27e67a!important;
-      color:#ffffff!important;
+      background:#ffffff!important;
+      color:#000000!important;
       margin:6px 0!important;
       width:100%!important;
     }
