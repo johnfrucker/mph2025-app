@@ -22,14 +22,7 @@ st.markdown(
       align-items:center;
       padding:10px 10px 10px;
     }
-     .home-box {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 16px 16px 10px 16px;
-      border-radius: 18px;
-      margin: 10px 0 20px 0;
-      border: 2px solid #ffffff33;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
+     
     .biglabel{font-size:1.4em;font-weight:800;color:#ffffff;margin:4px 0 10px;text-align:center;letter-spacing:.5px;}
     .biglabel {
       font-size: 1.4em;
@@ -203,7 +196,6 @@ if step == 0:
 
     # -- Section: AGENT PROFILES --
     with st.container():
-        st.markdown('<div class="home-box">', unsafe_allow_html=True)
         st.markdown("<div class='biglabel'>AGENT PROFILES</div>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
@@ -221,7 +213,6 @@ if step == 0:
 
     # -- Section: AGENT CHAT --
     with st.container():
-        st.markdown('<div class="home-box">', unsafe_allow_html=True)
         st.markdown("<div class='biglabel'>AGENT CHAT</div>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         with col1:
@@ -241,7 +232,6 @@ if step == 0:
 
     # -- Section: AGENT SOURCES --
     with st.container():
-        st.markdown('<div class="home-box">', unsafe_allow_html=True)
         st.markdown("<div class='biglabel'>AGENT SOURCES</div>", unsafe_allow_html=True)
         col1, _ = st.columns(2)
         with col1:
