@@ -182,20 +182,20 @@ if step == 0:
         """,
         unsafe_allow_html=True,
     )
-    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:12px'>AGENT PROFILES</div>", unsafe_allow_html=True)
     row1c1, row1c2 = st.columns(2)
     with row1c1:
-        if st.button("SAVED PROFILES", key="home_profiles"):
+        if st.button("MY AGENTS", key="home_profiles"):
             if st.session_state.profiles:
                 st.session_state.step = 9
                 st.rerun()
             else:
                 st.warning("No profiles yet.")
     with row1c2:
-        if st.button("NEW PROFILE", key="home_create"):
+        if st.button("NEW AGENT", key="home_create"):
             st.session_state.step = 1
             st.rerun()
-    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:12px'>AGENT CHAT</div>", unsafe_allow_html=True)
     row2c1, row2c2 = st.columns(2)
     with row2c1:
         if st.button("CHAT", key="home_chat"):
@@ -203,15 +203,16 @@ if step == 0:
             if not st.session_state.profiles:
                 st.warning("No profiles – create one first.")
             st.rerun()
-    with row2c2:
+     with row2c2:
         if st.button("SAVED CHATS", key="home_saved"):
             if st.session_state.saved_responses:
                 st.session_state.step = 8
                 st.rerun()
             else:
                 st.warning("No saved responses yet!")
-    row3c1, _ = st.columns(2)
-    with row3c1:
+     st.markdown("<div style='height:12px'>AGENT SOURCES</div>", unsafe_allow_html=True)
+     row3c1, _ = st.columns(2)
+     with row3c1:
         if st.button("EDIT SOURCES", key="edit_sources"):
             st.session_state.step = 10
             st.rerun()
@@ -406,8 +407,8 @@ elif step == 6:
             """,
             unsafe_allow_html=True,)
     render_top_nav()
-    st.markdown('<div class="biglabel">AGENT PROFILE CREATED! 🎉</div>', unsafe_allow_html=True)
-    st.markdown('<div class="frame-avatar">📝🎉</div>', unsafe_allow_html=True)
+    st.markdown('<div class="biglabel">AGENT PROFILE CREATED!</div>', unsafe_allow_html=True)
+    st.markdown('<div class="frame-avatar"></div>', unsafe_allow_html=True)
 
 elif step == 7:
     st.markdown(
