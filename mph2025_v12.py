@@ -180,22 +180,22 @@ TOOLTIPS = {
     "🛠 RESOLVE":"Step-by-step advice",
     "❤ SUPPORT":"Empathetic guidance"
 }
-
 # ---------------------------------------------------------------------------
 #  STEP LOGIC
 # ---------------------------------------------------------------------------
 if step == 0:
     # -- Section: Home Container --
     with st.container():   
-        col1, col2, = st.columns(2)
+        col1, col2 = st.columns(2)
         with col1: 
             st.markdown(
-            """
-            <div style="text-align:center;">
-              <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
-            </div>
-            """,
-            unsafe_allow_html=True,)
+                """
+                <div style="text-align:center;">
+                  <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
         with col2:
             st.markdown("<div class='biglabel'>MPH</div>", unsafe_allow_html=True)
 
@@ -203,7 +203,7 @@ if step == 0:
     with st.container():
         col1, col2, col3 = st.columns(3)
         with col1: 
-             st.markdown("<div class='biglabel'>AGENTS:</div>", unsafe_allow_html=True)
+            st.markdown("<div class='biglabel'>AGENTS:</div>", unsafe_allow_html=True)
         with col2:
             if st.button("MY AGENTS", key="home_profiles"):
                 if st.session_state.profiles:
@@ -215,37 +215,36 @@ if step == 0:
             if st.button("NEW AGENT", key="home_create"):
                 st.session_state.step = 1
                 st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
 
     # -- Section: AGENT CHAT --
     with st.container():
-        st.markdown("<div class='biglabel'>AGENT CHAT</div>", unsafe_allow_html=True)
-        col1, col2 = st.columns(2)
-        with col1:
+        col1, col2, col3 = st.columns(3)
+        with col1: 
+            st.markdown("<div class='biglabel'>CHAT:</div>", unsafe_allow_html=True)
+        with col2:
             if st.button("CHAT", key="home_chat"):
                 st.session_state.step = 7 if st.session_state.profiles else 1
                 if not st.session_state.profiles:
                     st.warning("No profiles – create one first.")
                 st.rerun()
-        with col2:
+        with col3:
             if st.button("SAVED CHATS", key="home_saved"):
                 if st.session_state.saved_responses:
                     st.session_state.step = 8
                     st.rerun()
                 else:
                     st.warning("No saved responses yet!")
-        st.markdown('</div>', unsafe_allow_html=True)
 
     # -- Section: AGENT SOURCES --
     with st.container():
-        st.markdown("<div class='biglabel'>AGENT SOURCES</div>", unsafe_allow_html=True)
-        col1, _ = st.columns(2)
-        with col1:
+        col1, col2, col3 = st.columns(3)
+        with col1: 
+            st.markdown("<div class='biglabel'>SOURCES:</div>", unsafe_allow_html=True)
+        with col2:
             if st.button("EDIT SOURCES", key="edit_sources"):
                 st.session_state.step = 10
                 st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
-        
+
 elif step == 1:
     render_top_nav()
     st.markdown(
