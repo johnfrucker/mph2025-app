@@ -41,8 +41,8 @@ st.markdown(
     .stButton>button{
       border-radius:26px!important;
       font-weight:700!important;
-      font-size:.9em!important;
-      padding:.8em 0!important;
+      font-size:.7em!important;
+      padding:.4em 0!important;
       background:#ffffff!important;
       color:#000000!important;
       margin:6px 0!important;
@@ -187,8 +187,8 @@ TOOLTIPS = {
 if step == 0:
     st.markdown(
         """
-        <div style="text-align:center;">
-          <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="160" />
+        <div style="text-align:left;">
+          <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
         </div>
         """,
         unsafe_allow_html=True,
