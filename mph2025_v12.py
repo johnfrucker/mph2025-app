@@ -476,31 +476,32 @@ elif step == 7:
     )
 
 
-    # -- Row: Section Title + Buttons --
+    # -- Ensure session state key exists first --
+    st.session_state.setdefault("shortcut", "💬 DEFAULT")
+
+    # -- Row 1: Section Label and Selection Box --
     col1, col2 = st.columns([3, 5])
 
-    # Column 1: Label
     with col1:
         st.markdown('<div class="biglabel">2. SELECT A RESPONSE TYPE</div>', unsafe_allow_html=True)
 
-    # Column 2: Shortcut Buttons
     with col2:
-        st.session_state.setdefault("shortcut", "💬 DEFAULT")
-        button_cols = st.columns(len(SHORTCUTS))
-        for i, sc in enumerate(SHORTCUTS):
-            with button_cols[i]:
-                if st.button(EMOJIS[sc], key=f"type_{sc}", help=TOOLTIPS[sc]):
-                    st.session_state.shortcut = sc
+        st.markdown(
+            f"""
+            <div style="background:#fff;color:#000;padding:12px;border-radius:8px;margin-top:4px;margin-bottom:12px;">
+              <strong>Selected:</strong> {st.session_state.shortcut}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    # -- Below the Row: Selected Response Box --
-    st.markdown(
-        f"""
-        <div style="background:#fff;color:#000;padding:12px;border-radius:8px;margin-top:12px;margin-bottom:12px;">
-          <strong>Selected:</strong> {st.session_state.shortcut}
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    # -- Row 2: Emoji Buttons (Full Width) --
+    button_cols = st.columns(len(SHORTCUTS))
+    for i, sc in enumerate(SHORTCUTS):
+        with button_cols[i]:
+            if st.button(EMOJIS[sc], key=f"type_{sc}", help=TOOLTIPS[sc]):
+                st.session_state.shortcut = sc
+
     st.markdown('<div class="biglabel">3. WHAT DO YOU WANT TO ASK?</div>', unsafe_allow_html=True)
     query = st.text_area("Type here", key="chat_query")
     if st.session_state.last_answer:
