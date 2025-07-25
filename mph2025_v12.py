@@ -438,59 +438,44 @@ elif step == 6:
     st.markdown('<div class="frame-avatar"></div>', unsafe_allow_html=True)
 
 elif step == 7:
-    st.markdown(
-                """
-                <div style="text-align:center;">
-                  <img src="https://img1.wsimg.com/isteam/ip/e13cd0a5-b867-446e-af2a-268488bd6f38/myparenthelpers%20logo%20round.png" width="80" />
-                </div>
-                """,
-                unsafe_allow_html=True,)
-    render_top_nav()
-    st.markdown('<div class="biglabel">1. SELECT AN AGENT</div>', unsafe_allow_html=True)
+        # -- Row: Section Title and Agent Selector in One Line --
+    col1, col2 = st.columns([3, 5])
+
+    # Column 1: Header
+    with col1:
+        st.markdown('<div class="biglabel">1. SELECT AN AGENT</div>', unsafe_allow_html=True)
+
+    # Column 2: Selectbox and Info Icon
     names = [p["profile_name"] for p in st.session_state.profiles]
-    col_dd, col_icon = st.columns([4,1])
-    idx = col_dd.selectbox("Parenting Agent Profiles:", range(len(names)),
-                          format_func=lambda i: names[i], key="chat_profile")
+    col_dd, col_icon = col2.columns([4, 1])
+
+    # Selectbox
+    idx = col_dd.selectbox(
+        "Agent Profiles:",
+        range(len(names)),
+        format_func=lambda i: names[i],
+        key="chat_profile"
+    )
+
+    # Info Tooltip
     sel = st.session_state.profiles[idx]
     tooltip = (
-        f"Profile: {sel['profile_name']} "
-        f"Agent: {sel.get('agent_type','Parent')} "
-        f"Type: {sel['source_type']} "
-        f"Source: {sel['source_name']} "
-        f"Child: {sel['child_name']} "
-        f"Age: {sel['child_age']} "
-        f"Parent: {sel['parent_name']} "
+        f"Profile: {sel['profile_name']} | "
+        f"Agent: {sel.get('agent_type','Parent')} | "
+        f"Type: {sel['source_type']} | "
+        f"Source: {sel['source_name']} | "
+        f"Child: {sel['child_name']} | "
+        f"Age: {sel['child_age']} | "
+        f"Parent: {sel['parent_name']} | "
         f"Persona: {sel['persona_description']}"
     )
+
     col_icon.markdown(
         f'<span title="{tooltip}" style="font-size:1.5em; cursor:help;">ℹ️</span>',
         unsafe_allow_html=True,
     )
-    st.markdown(
-        f"""
-        <div style="
-          background: #d3d3d3;
-          padding: 12px;
-          border-radius: 8px;
-          margin-top: 12px;
-        ">
-          <div style="margin-bottom:8px;">
-            <span style="color:#27e67a;font-weight:700;font-size:1.2em;">ACTIVE AGENT</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;">
-            <div><span style="color:#27e67a;font-weight:600;">Profile:</span>
-                 <span style="color:#000;font-weight:500;">{sel['profile_name']}</span></div>
-            <div><span style="color:#27e67a;font-weight:600;">Agent:</span>
-                 <span style="color:#000;font-weight:500;">{sel.get('agent_type','Parent')}</span></div>
-            <div><span style="color:#27e67a;font-weight:600;">Source:</span>
-                 <span style="color:#000;font-weight:500;">{sel['source_name']}</span></div>
-            <div><span style="color:#27e67a;font-weight:600;">Child Age:</span>
-                 <span style="color:#000;font-weight:500;">{sel['child_age']}</span></div>
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+
+
     st.markdown('<div class="biglabel">2. SELECT A RESPONSE TYPE</div>', unsafe_allow_html=True)
     st.session_state.setdefault("shortcut", "💬 DEFAULT")
     cols = st.columns(len(SHORTCUTS))
