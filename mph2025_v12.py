@@ -234,7 +234,7 @@ if step == 0:
         if st.button("EDIT SOURCES", key="edit_sources"):
             st.session_state.step = 10
             st.rerun()
-            st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 elif step == 1:
     render_top_nav()
